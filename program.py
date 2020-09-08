@@ -5,7 +5,7 @@ import email
 import sys
 import os
 import time
-from stringco.strco import *
+from stringco import *
 
 class actions:
     coms = []
@@ -31,10 +31,9 @@ class actions:
                 else:
                     self.coms.append(inp[:-1])
     def find(self, s):
-        i = Dam(self.coms, s)
-        if i == -1:
-            return 0
-        return self.execs[i]
+        for i in range(len(self.coms)):
+            if self.coms[i] == s:
+                return self.execs[i]
 
 f_path = open('path_to_false_file.txt', 'r')
 acts = actions('actions.txt')
