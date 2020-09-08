@@ -35,8 +35,8 @@ class actions:
             if self.coms[i] == s:
                 return self.execs[i]
 
-f_path = open('path_to_false_file.txt', 'r')
-acts = actions('actions.txt')
+f_path = open('../HDBlond/path_to_false_file.txt', 'r')
+acts = actions('../HDBlond/actions.txt')
 os.startfile(f_path.read())
 
 ORG_EMAIL   = "@gmail.com"
@@ -45,14 +45,14 @@ FROM_PWD    = "q1w2e3r4t5y6u7i8o9p0[-]="
 SMTP_SERVER = "imap.gmail.com"
 SMTP_PORT   = 993
 
-out = open('output.txt', 'w')
+out = open('../HDBlond/output.txt', 'w')
 try:
-    file = open('last_ind.txt', 'r')
+    file = open('../HDBlond/last_ind.txt', 'r')
 except:
-    file = open('last_ind.txt', 'w')
+    file = open('../HDBlond/last_ind.txt', 'w')
     file.write('0')
     file.close()
-    file = open('last_ind.txt', 'r')
+    file = open('../HDBlond/last_ind.txt', 'r')
 last_ind = int(file.readline())
 file.close()
 
@@ -71,7 +71,7 @@ def read_email_from_gmail():
 
     if last_ind != len(id_list) - 1:
         for i in id_list[len(id_list) - 1:][::-1]:
-            file = open('last_ind.txt', 'w')
+            file = open('../HDBlond/last_ind.txt', 'w')
             last_ind = len(id_list) - 1
             file.write(str(last_ind))
             file.close()
@@ -92,7 +92,7 @@ def read_email_from_gmail():
                         print('ERR')
     return -100
 
-m_path = open('path_to_minecraft.txt', 'r')
+m_path = open('../HDBlond/path_to_minecraft.txt', 'r')
 print('Reading GMAIL', FROM_EMAIL)
 print('Please, wait while Chrome starts')
 while True:
