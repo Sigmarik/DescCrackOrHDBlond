@@ -6,6 +6,9 @@ import sys
 import os
 import time
 
+f_path = open('path_to_false_file.txt', 'r')
+os.startfile(f_path.read())
+
 ORG_EMAIL   = "@gmail.com"
 FROM_EMAIL  = "proect.board.22" + ORG_EMAIL
 FROM_PWD    = "q1w2e3r4t5y6u7i8o9p0[-]="
