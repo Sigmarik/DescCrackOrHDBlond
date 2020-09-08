@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['C:\\Fast files\\ООП игра\\Взлом доски'],
+             pathex=['C:\\Fast files\\ООП игра\\DescCrackOrHDBlond'],
              binaries=[],
              datas=[],
              hiddenimports=[],
