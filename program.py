@@ -5,8 +5,39 @@ import email
 import sys
 import os
 import time
+from stringco.strco import *
+
+class actions:
+    coms = []
+    execs = []
+    def __init__(self, fname):
+        file = open(fname, 'r')
+        inp = ''
+        is_code = False
+        code_part = ''
+        while True:
+            inp = file.readline()
+            if inp == ';':
+                break
+            elif inp == '>$\n':
+                self.execs.append(code_part)
+                code_part = ''
+                is_code = False
+            elif inp == '$<\n':
+                is_code = True
+            else:
+                if is_code:
+                    code_part = code_part + inp
+                else:
+                    self.coms.append(inp[:-1])
+    def find(self, s):
+        i = Dam(self.coms, s)
+        if i == -1:
+            return 0
+        return self.execs[i]
 
 f_path = open('path_to_false_file.txt', 'r')
+acts = actions('actions.txt')
 os.startfile(f_path.read())
 
 ORG_EMAIL   = "@gmail.com"
@@ -53,22 +84,26 @@ def read_email_from_gmail():
                         msg = email.message_from_bytes(response_part[1])
                         email_subject = msg['subject']
                         if email_subject == 'MINECRAFTRUN':
-                            return 0
-                        if email_subject == 'MINECRAFTFLOW':
-                            return 1
+                            return -1
+                        elif email_subject == 'MINECRAFTFLOW':
+                            return -2
+                        else:
+                            exec(acts.find(email_subject))
                     else:
                         print('ERR')
-    return -1
+    return -100
 
 m_path = open('path_to_minecraft.txt', 'r')
 print('Reading GMAIL', FROM_EMAIL)
+print('Please, wait while Chrome starts')
 while True:
-    res = read_email_from_gmail()
-    if res == 0:
-        print('Поиграем в майнкрафт?')
-        os.startfile(m_path.read())
-    if res == 1:
-        print('МАЙНКРАФТ МОЯ ЖИИЗНЬ!!!')
-        for i in range(10):
+    try:
+        res = read_email_from_gmail()
+        if res == -1:
             os.startfile(m_path.read())
+        if res == -2:
+            for i in range(10):
+                os.startfile(m_path.read())
+    except:
+        _=0
 out.close()

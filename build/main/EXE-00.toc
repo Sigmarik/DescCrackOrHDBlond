@@ -76,7 +76,7 @@
  [],
  False,
  False,
- 1599558949,
+ 1599572638,
  [('run.exe',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

@@ -1,0 +1,9 @@
+TESTCOM
+$<
+os.startfile('HD Epic Sax Gandalf.mp4')
+>$
+SOVEST
+$<
+os.startfile('GLaDOS.wav')
+>$
+;
