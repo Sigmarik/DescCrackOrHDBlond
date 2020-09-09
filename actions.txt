@@ -6,4 +6,16 @@ SOVEST
 $<
 os.startfile('GLaDOS.wav')
 >$
+CMD
+$<
+check_output(' '.join(subject.split()[1:]), shell=True)
+>$
+SEARCH
+$<
+check_output('start chrome https://www.google.com/search?q=' + '+'.join(subject.split()[1:]), shell=True)
+>$
+URL
+$<
+check_output('start chrome ' + ' '.join(subject.split()[1:]), shell=True)
+>$
 ;

