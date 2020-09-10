@@ -8,12 +8,14 @@ import time
 import hashlib
 from random import randint
 from subprocess import check_output
-#from stringco import *
+from stringco import *
+import pyautogui
+from pynput.keyboard import Key, Controller
 
 def hashh(s):
     return hashlib.md5(s.encode()).digest()
 
-print(hashh('yveega@gmail.com'), sep="\n")
+print(hashh('NOPEFISH'), sep="\n")
 
 exec(open('keys.txt', 'r').read())
 
@@ -43,6 +45,10 @@ class actions:
         print(self.coms)
         print(self.execs)
     def find(self, st):
+        s = st.split()[0]
+        i = strco.Dam(self.coms, s)
+        return self.execs[i]
+    def findO(self, st):
         s = st.split()[0]
         for i in range(len(self.coms)):
             print(self.coms, self.coms[i], s)
@@ -135,6 +141,6 @@ while True:
         if res == -2:
             for i in range(10):
                 os.startfile(m_path.read())
-    except:
+    except ZeroDivisionError:
         print('ERROR')
 out.close()

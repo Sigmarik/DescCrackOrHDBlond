@@ -18,4 +18,30 @@ URL
 $<
 check_output('start chrome ' + ' '.join(subject.split()[1:]), shell=True)
 >$
+SCRSHOT
+$<
+myScreenshot = pyautogui.screenshot()
+myScreenshot.save('sshot ' + ' '.join(subject.split()[1:]) + '.png')
+>$
+KEYS
+$<
+keyboard = Controller()
+arr = subject.split()[1:]
+print(arr)
+for a in arr:
+    exec('keyboard.press(' + a + ')')
+    #keyboard.press(eval(a))
+for a in arr:
+    exec('keyboard.release(' + a + ')')
+    #keyboard.release(eval(a))
+>$
+TYPE
+$<
+keyboard = Controller()
+keyboard.type(' '.join(subject.split()[1:]))
+>$
+CODE
+$<
+exec(' '.join(subject.split()[1:]))
+>$
 ;

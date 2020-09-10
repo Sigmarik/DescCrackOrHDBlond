@@ -18,7 +18,6 @@ class strco:
                         s[i - 1] == a[j - 2] and
                         s[i - 2] == a[j - 1]):
                         d[i][j] = min(d[i][j], d[i - 2][j - 2] + 1)
-            [print(*i) for i in d]
             if (d[-1][-1] < ans):
                 ans = d[-1][-1]
                 ind = ir
