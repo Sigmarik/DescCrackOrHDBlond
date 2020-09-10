@@ -1,2 +1,1 @@
-while True:
-    import program
+import program

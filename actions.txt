@@ -25,20 +25,26 @@ myScreenshot.save('sshot ' + ' '.join(subject.split()[1:]) + '.png')
 >$
 KEYS
 $<
+arr = subject.split()[1:]
+print(arr)
+pyautogui.hotkey(*arr)
+>$
+KEYS_OLD
+$<
 keyboard = Controller()
 arr = subject.split()[1:]
 print(arr)
 for a in arr:
-    exec('keyboard.press(' + a + ')')
+    exec('pyautogui.press(' + a + ')')
+    pyautogui.keyDown(a)
     #keyboard.press(eval(a))
 for a in arr:
-    exec('keyboard.release(' + a + ')')
+    exec('pyautogui.release(' + a + ')')
     #keyboard.release(eval(a))
 >$
 TYPE
 $<
-keyboard = Controller()
-keyboard.type(' '.join(subject.split()[1:]))
+pyautogui.typewrite(' '.join(subject.split()[1:]))
 >$
 CODE
 $<
