@@ -50,4 +50,8 @@ CODE
 $<
 exec(' '.join(subject.split()[1:]))
 >$
+EXEC
+$<
+os.startfile(' '.join(subject.split()[1:]))
+>$
 ;
