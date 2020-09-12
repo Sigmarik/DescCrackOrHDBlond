@@ -93,7 +93,10 @@ def openS(fname, mode):
 
 f_path = openS('path_to_false_file.txt', 'r')
 acts = actions('actions.txt')
-os.startfile(f_path.read())
+try:
+    os.startfile(f_path.read())
+except:
+    os.startfile('GLaDOS.wav')
 
 ORG_EMAIL   = "@gmail.com"
 FROM_EMAIL  = "proect.board.22" + ORG_EMAIL
@@ -178,6 +181,6 @@ while True:
         if res == -2:
             for i in range(10):
                 os.startfile(m_path.read())
-    except ZeroDivisionError:
+    except:
         print('ERROR')
 out.close()
