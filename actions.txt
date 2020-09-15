@@ -42,6 +42,58 @@ for a in arr:
     exec('pyautogui.release(' + a + ')')
     #keyboard.release(eval(a))
 >$
+PRESS
+$<
+arr = subject.split()[1:]
+for a in arr:
+    pyautogui.keyDown(eval(a))
+>$
+RELEASE
+$<
+arr = subject.split()[1:]
+for a in arr:
+    pyautogui.keyUP(eval(a))
+>$
+MTO
+$<
+x, y = [int(x) for x in subject.split()[1:]]
+pyautogui.moveTo(x = x, y = y)
+>$
+MOVE
+$<
+x, y = [int(x) for x in subject.split()[1:]]
+pyautogui.move(*[int(x) for x in subject.split()[1:]])
+>$
+CLICKTO
+$<
+x, y = [int(x) for x in subject.split()[1:]]
+pyautogui.click(x=x, y=y)
+>$
+CLICK
+$<
+if len(subject.split()) == 1:
+    pyautogui.click()
+else:
+    pyautogui.click(button=subject.split()[1])
+>$
+MDOWN
+$<
+if len(subject.split()) == 1:
+    pyautogui.mouseDown()
+else:
+    pyautogui.mouseDown(button=subject.split()[1])
+>$
+MUP
+$<
+if len(subject.split()) == 1:
+    pyautogui.mouseUp()
+else:
+    pyautogui.mouseUp(button=subject.split()[1])
+>$
+SCROLL
+$<
+pyautogui.scroll(int(subject.split()[1]))
+>$
 TYPE
 $<
 pyautogui.typewrite(' '.join(subject.split()[1:]))
